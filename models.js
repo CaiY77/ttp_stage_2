@@ -33,6 +33,7 @@ const Stock = db.define('stocks', {
   company: Sequelize.STRING,
   ticker: Sequelize.STRING,
   qty: Sequelize.INTEGER,
+  price: Sequelize.INTEGER
 })
 
 User.hasMany(Stock, {
