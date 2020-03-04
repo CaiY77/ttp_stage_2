@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "db:reset": "dropdb --if-exists -e ttp_stocks && createdb -e ttp_stocks && node resetDb.js && node seeds.js"
+    "db:reset": "dropdb --if-exists -e ttp_stocks && createdb -e ttp_stocks && node resetDb.js && node seed.js"
   },
   "repository": {
     "type": "git",
