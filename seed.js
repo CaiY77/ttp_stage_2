@@ -19,7 +19,7 @@ const main = async () => {
   });
 
   const testStock = await Stock.create({
-    companyName: 'Facebook, Inc.',
+    company: 'Facebook, Inc.',
     ticker: 'FB',
     qty: 10,
     price: 50
