@@ -5,7 +5,8 @@
   "main": "models.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "db:reset": "dropdb --if-exists -e ttp_stocks && createdb -e ttp_stocks && node resetDb.js && node seeds.js"
   },
   "repository": {
     "type": "git",
