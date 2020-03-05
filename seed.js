@@ -14,13 +14,13 @@ const main = async () => {
 
   const testUser = await User.create({
     fullname: 'Testing',
-    email: 'Test@gmail.com',
+    email: 'test@gmail.com',
     password: 'test123',
   });
 
   const testStock = await Stock.create({
     company: 'Facebook, Inc.',
-    ticker: 'FB',
+    symbol: 'FB',
     qty: 10,
     price: 50
   })

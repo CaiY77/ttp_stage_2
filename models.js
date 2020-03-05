@@ -31,7 +31,7 @@ const User = db.define('users', {
 
 const Stock = db.define('stocks', {
   company: Sequelize.STRING,
-  ticker: Sequelize.STRING,
+  symbol: Sequelize.STRING,
   qty: Sequelize.INTEGER,
   price: Sequelize.INTEGER
 })
