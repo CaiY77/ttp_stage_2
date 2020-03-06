@@ -4,22 +4,33 @@ height: 100vh;
 
 /* Login */
 
-.login-top{
-  height: 20%;
-  text-align: center;
-}
 .login-title{
-  padding: 3% 0 0 0;
+  text-align: center;
+  margin: 0;
+  padding: 50px 0 50px 0;
 }
 .login-bottom{
+  width: 100%;
+}
+.form-reg-div, .form-login-div{
   height: 80%;
   width: 100%;
-  display: flex;
-  position: absolute;
+  padding: 3% 23% 5% 23%;
 }
-.login-form-1, .login-form-2{
-  flex: 1;
-  padding: 7% 7% 0 7%;
+.form-reg, .form-login{
+  padding: 40px 10% 40px 10%;
+  border: solid grey 2px;
+  border-radius: 15px;
+}
+.button-center{
+  text-align: center;
+  padding-top: 30px;
+}
+.button-style{
+  border-radius: 25px !important;
+}
+.login-font{
+  font-size: 1.5rem !important;
 }
 
 
