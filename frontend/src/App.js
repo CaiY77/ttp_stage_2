@@ -18,7 +18,9 @@ class App extends Component {
       userID:'',
       wallet:'',
       stocks:'',
-      fullname:''
+      fullname:'',
+      form1err:false,
+      form2err:false
     };
   }
 
@@ -46,6 +48,9 @@ class App extends Component {
         });
         this.toggleLogged();
       } else {
+        this.setState({
+          form1err: true
+        });
         console.log('invalid user')
       }
   }
@@ -58,8 +63,8 @@ class App extends Component {
       email: newEmail.toLowerCase(),
       password: newPassword
     }
-
     const user = await makeUser(regInfo);
+
     if (user) {
       this.setState({
         userID: user.id,
@@ -68,6 +73,9 @@ class App extends Component {
       });
       this.toggleLogged();
     } else {
+      this.setState({
+        form2err: true
+      });
       console.log('email in use')
     }
 
@@ -78,12 +86,17 @@ class App extends Component {
   };
 
   render() {
-    const {isLogged} = this.state
+    const {isLogged, form1err ,form2err} = this.state
     return (<div className='main-div'>
       {
         (isLogged)
           ? <Dashboard />
-          : <Login handleInputs={this.handleInputs} login={this.login} register={this.register}/>
+          : <Login
+            form1err={form1err}
+            form2err= {form2err}
+            handleInputs={this.handleInputs}
+            login={this.login}
+            register={this.register}/>
       }
     </div>);
 
