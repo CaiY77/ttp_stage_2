@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { findUser , makeUser } from './service/apiservice.js'
+import Dashboard from './components/Dashboard.js'
+import Login from './components/Login.js'
+import './App.css'
 
 class App extends Component {
 
@@ -10,7 +13,8 @@ class App extends Component {
       password: 'test123',
       newEmail:"test6@gmail.com",
       newPassword: "test123",
-      fullname: "test2"
+      fullname: "test2",
+      isLogged: false
     };
   }
 
@@ -38,12 +42,14 @@ class App extends Component {
   }
 
   render() {
-
-    return (
-      <div>
-        
-      </div>
-    );
+    const {isLogged} = this.state
+    return (<div className='main-div'>
+      {
+        (isLogged)
+          ? <Dashboard />
+          : <Login />
+      }
+    </div>);
 
   }
 
