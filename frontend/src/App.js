@@ -9,23 +9,43 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'test@gmail.com',
-      password: 'test123',
-      newEmail:"test6@gmail.com",
-      newPassword: "test123",
-      fullname: "test2",
-      isLogged: false
+      email: '',
+      password: '',
+      newEmail:'',
+      newPassword: '',
+      fullname: '',
+      isLogged: false,
+      userID:'',
+      wallet:'',
+      stocks:'',
+      fullname:''
     };
   }
 
-  login = async () => {
+  toggleLogged = () => {
+    this.setState({
+      isLogged: true
+    });
+  }
 
+  login = async () => {
     const cred = {
       email:this.state.email,
       password: this.state.password
     }
+
     const user = await findUser(cred);
-    console.log(user)
+      if (user) {
+      this.setState({
+        userID: user.id,
+        wallet: user.wallet,
+        fullname: user.fullname
+      });
+      this.toggleLogged();
+
+      } else {
+        console.log('invalid user')
+      }
   }
 
   register = async () => {
@@ -41,13 +61,17 @@ class App extends Component {
     : console.log('already exist')
   }
 
+  handleInputs = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   render() {
     const {isLogged} = this.state
     return (<div className='main-div'>
       {
         (isLogged)
           ? <Dashboard />
-          : <Login />
+          : <Login handleInputs={this.handleInputs} login={this.login} register={this.register}/>
       }
     </div>);
 
