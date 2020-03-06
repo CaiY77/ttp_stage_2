@@ -4,7 +4,23 @@ height: 100vh;
 
 /* Login */
 
-
+.login-top{
+  height: 20%;
+  text-align: center;
+}
+.login-title{
+  padding: 3% 0 0 0;
+}
+.login-bottom{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  position: absolute;
+}
+.login-form-1, .login-form-2{
+  flex: 1;
+  padding: 7% 7% 0 7%;
+}
 
 
 
