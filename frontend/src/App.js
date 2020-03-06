@@ -29,6 +29,9 @@ class App extends Component {
   }
 
   login = async () => {
+
+    const {email,password} = this.state;
+
     const cred = {
       email:this.state.email,
       password: this.state.password
@@ -36,29 +39,38 @@ class App extends Component {
 
     const user = await findUser(cred);
       if (user) {
-      this.setState({
-        userID: user.id,
-        wallet: user.wallet,
-        fullname: user.fullname
-      });
-      this.toggleLogged();
-
+        this.setState({
+          userID: user.id,
+          wallet: user.wallet,
+          fullname: user.fullname
+        });
+        this.toggleLogged();
       } else {
         console.log('invalid user')
       }
   }
 
   register = async () => {
-    const regInfo = {
-      fullname: this.state.fullname,
-      email:this.state.newEmail,
-      password: this.state.newPassword
-    }
-    const user = await makeUser(regInfo);
+    const { fullname,newEmail,newPassword } = this.state
 
-    (user)
-    ? console.log(user)
-    : console.log('already exist')
+    const regInfo = {
+      fullname: fullname,
+      email: newEmail.toLowerCase(),
+      password: newPassword
+    }
+
+    const user = await makeUser(regInfo);
+    if (user) {
+      this.setState({
+        userID: user.id,
+        wallet: user.wallet,
+        fullname: user.fullname
+      });
+      this.toggleLogged();
+    } else {
+      console.log('email in use')
+    }
+
   }
 
   handleInputs = event => {
