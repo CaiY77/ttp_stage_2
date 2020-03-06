@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { findUser , makeUser } from './service/apiservice.js'
+import { findUser , makeUser, updateUser } from './service/apiservice.js'
 import Dashboard from './components/Dashboard.js'
 import Login from './components/Login.js'
 import './App.css'

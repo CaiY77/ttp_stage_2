@@ -70,7 +70,6 @@ app.post('/user/:id/stock', async (request, response) => {
       const who = await User.findByPk(request.params.id)
 
       await stock.setUser(who);
-
       response.json(stock)
 
   } catch (e) {
@@ -79,7 +78,7 @@ app.post('/user/:id/stock', async (request, response) => {
 })
 
 //get all stocks for a user
-app.get('/user/:id/stocks', async(request,response)=>{
+app.get('/user/:id/stock', async(request,response)=>{
   try{
     const allStocks = await Stock.findAll({
       where:{

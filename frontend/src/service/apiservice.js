@@ -22,3 +22,30 @@ export const makeUser = async (regInfo) => {
     console.log(e)
   }
 }
+
+export const updateUser = async (id ,newInfo) => {
+  try {
+    const resp = await api.put(`/user/${id}`, newInfo)
+    return resp.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const makeStock = async (id,stockInfo) => {
+  try {
+    const resp = await api.post(`/user/${id}/stock`, stockInfo)
+    return resp.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getStocks = async (id) => {
+  try {
+    const resp = await api.get(`/user/${id}/stock`)
+    return resp.data
+  } catch (e) {
+    console.log(e)
+  }
+}
