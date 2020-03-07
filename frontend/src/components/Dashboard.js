@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route,Link} from 'react-router-dom';
+import { Button } from 'semantic-ui-react'
 import Portfolio from './Portfolio.js'
 import Transaction from './Transaction.js'
 
@@ -12,9 +13,14 @@ constructor(props) {
 }
   render() {
     return (<div>
-      <nav>
-        <Link className="nav-item" to = "/"> <div>Portfolio</div></Link>
-        <Link className="nav-item" to = "/transactions"> <div>Transactions</div></Link>
+      <nav className="ui secondary menu">
+
+        <Link className="custom-style" to = "/"> <div>Portfolio</div></Link>
+        <Link className="custom-style" to = "/transactions"> <div>Transactions</div></Link>
+        <div className="right menu">
+          <Link to = "/" onClick={this.props.logout}><Button inverted color="red" className="logout-style">Sign Out</Button></Link>
+        </div>
+
       </nav>
 
       <Route exact path = '/' render={()=> <Portfolio/>}/>

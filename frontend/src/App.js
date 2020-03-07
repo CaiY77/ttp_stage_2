@@ -90,12 +90,29 @@ class App extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleLogOut=()=>{
+    this.setState({
+      email: '',
+      password: '',
+      newEmail:'',
+      newPassword: '',
+      fullname: '',
+      isLogged: false,
+      userID:'',
+      wallet:'',
+      name:'',
+      stocks:[],
+      form1err:false,
+      form2err:false
+    });
+  }
+
   render() {
     const {isLogged, form1err ,form2err} = this.state
     return (<div className='main-div'>
       {
         (isLogged)
-          ? <Dashboard />
+          ? <Dashboard logout={this.handleLogOut}/>
           : <Login
             form1err={form1err}
             form2err= {form2err}
