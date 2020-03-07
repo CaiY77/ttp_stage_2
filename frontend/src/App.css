@@ -33,7 +33,9 @@ height: 100vh;
   font-size: 1.3rem !important;
 }
 
-
-
-
 /* Dashboard */
+nav {
+  display: flex;
+}
+.nav-item{
+}
