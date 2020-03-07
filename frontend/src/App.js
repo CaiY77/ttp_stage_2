@@ -18,7 +18,7 @@ class App extends Component {
       userID:'',
       wallet:'',
       name:'',
-      stocks:'',
+      stocks:[],
       form1err:false,
       form2err:false
     };
@@ -27,6 +27,14 @@ class App extends Component {
   toggleLogged = () => {
     this.setState({
       isLogged: true
+    });
+  }
+
+  fetchStocks = async () => {
+    const { stocks, userID } = this.state;
+    const userStocks = await getStocks(userID);
+    this.setState({
+      stocks: userStocks
     });
   }
 
@@ -44,6 +52,7 @@ class App extends Component {
           wallet: user.wallet,
           name: user.fullname
         });
+        await this.fetchStocks();
         this.toggleLogged();
       } else {
         this.setState({
@@ -73,7 +82,6 @@ class App extends Component {
       this.setState({
         form2err: true
       });
-      console.log('email in use')
     }
 
   }
