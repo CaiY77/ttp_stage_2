@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Message, Divider } from 'semantic-ui-react'
+import { Form, Button, Message } from 'semantic-ui-react'
 
 class Login extends Component {
 
@@ -23,7 +23,7 @@ class Login extends Component {
     return (
       <div style={{height: '100%'}}>
 
-        <h1 className='login-title'>TTP Stock Application</h1>
+        <h1 className='login-title'>TTP Stocks</h1>
 
         <div className='login-bottom'>
           {

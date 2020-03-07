@@ -49,3 +49,12 @@ export const getStocks = async (id) => {
     console.log(e)
   }
 }
+
+export const getUser= async (id) =>{
+  try {
+    const resp = await api.get(`/user/${id}`)
+    return resp.data
+  } catch (e) {
+    console.log(e)
+  }
+}

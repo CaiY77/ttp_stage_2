@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { findUser , makeUser, updateUser } from './service/apiservice.js'
+import { findUser , makeUser, updateUser, getUser, makeStock, getStocks} from './service/apiservice.js'
 import Dashboard from './components/Dashboard.js'
 import Login from './components/Login.js'
 import './App.css'
@@ -14,11 +14,11 @@ class App extends Component {
       newEmail:'',
       newPassword: '',
       fullname: '',
-      isLogged: false,
+      isLogged: true,
       userID:'',
       wallet:'',
+      name:'',
       stocks:'',
-      fullname:'',
       form1err:false,
       form2err:false
     };
@@ -31,12 +31,10 @@ class App extends Component {
   }
 
   login = async () => {
-
     const {email,password} = this.state;
-
     const cred = {
-      email:this.state.email,
-      password: this.state.password
+      email: email,
+      password: password
     }
 
     const user = await findUser(cred);
@@ -44,14 +42,13 @@ class App extends Component {
         this.setState({
           userID: user.id,
           wallet: user.wallet,
-          fullname: user.fullname
+          name: user.fullname
         });
         this.toggleLogged();
       } else {
         this.setState({
           form1err: true
         });
-        console.log('invalid user')
       }
   }
 

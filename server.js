@@ -33,6 +33,15 @@ app.post('/signup', async (request, response) => {
   }
 })
 
+app.get('/user/:id', async (request , response)=>{
+  try {
+    const user = await User.findByPk(request.params.id)
+    response.json(user);
+  } catch (e) {
+
+  }
+})
+
 //Log on
 app.post('/login', async (request, response) => {
   const { email, password } = request.body;
