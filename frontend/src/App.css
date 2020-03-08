@@ -63,3 +63,17 @@ nav{
 .logout-style{
   font-size: 1.4rem !important;
 }
+
+/* Transaction */
+.trans-contain{
+  height: 85vh;
+  overflow-y: scroll;
+  padding: 30px 20% 30px 20%;
+}
+.card-style{
+  font-size:1.4rem !important;
+}
+.card-style-2{
+  font-size:1.5rem !important;
+}
+/* Portfolio */

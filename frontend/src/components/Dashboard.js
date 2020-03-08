@@ -12,6 +12,7 @@ constructor(props) {
   };
 }
   render() {
+    const { stocks, fetchStocks } = this.props
     return (<div>
       <nav className="ui secondary menu">
 
@@ -23,8 +24,8 @@ constructor(props) {
 
       </nav>
 
-      <Route exact path = '/' render={()=> <Portfolio/>}/>
-      <Route path = '/transactions' render={()=> <Transaction/>}/>
+      <Route exact path = '/' render={()=> <Portfolio stocks={stocks} fetchStocks={fetchStocks}/>}/>
+      <Route path = '/transactions' render={()=> <Transaction stocks={stocks}/>}/>
 
     </div>);
   }

@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   fetchStocks = async () => {
-    const { stocks, userID } = this.state;
+    const { userID } = this.state;
     const userStocks = await getStocks(userID);
     this.setState({
       stocks: userStocks
@@ -108,11 +108,15 @@ class App extends Component {
   }
 
   render() {
-    const {isLogged, form1err ,form2err} = this.state
+    const {isLogged, form1err ,form2err, stocks} = this.state
     return (<div className='main-div'>
       {
         (isLogged)
-          ? <Dashboard logout={this.handleLogOut}/>
+          ? <Dashboard
+            logout={this.handleLogOut}
+            stocks={stocks}
+            fetchStocks={this.fetchStocks}
+            />
           : <Login
             form1err={form1err}
             form2err= {form2err}
