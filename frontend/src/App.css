@@ -71,9 +71,23 @@ nav{
   padding: 30px 20% 30px 20%;
 }
 .card-style{
-  font-size:1.4rem !important;
+  font-size:1.2rem !important;
 }
 .card-style-2{
-  font-size:1.5rem !important;
+  font-size:1.4rem !important;
 }
 /* Portfolio */
+.left-column{
+  border: solid black 1px;
+  border-radius: 20px;
+  padding-bottom: 90px !important;
+}
+.make-fade{
+  position: absolute !important;
+}
+.grid-style{
+  padding: 0 50px 0 50px !important;
+}
+.budget-style{
+  padding: 10px 0 20px 75px;
+}

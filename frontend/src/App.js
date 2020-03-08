@@ -15,10 +15,8 @@ class App extends Component {
       newPassword: '',
       fullname: '',
       isLogged: true,
-      userID:'',
-      wallet:'',
-      name:'',
       stocks:[],
+      user:{},
       form1err:false,
       form2err:false
     };
@@ -31,8 +29,8 @@ class App extends Component {
   }
 
   fetchStocks = async () => {
-    const { userID } = this.state;
-    const userStocks = await getStocks(userID);
+    const { user } = this.state;
+    const userStocks = await getStocks(user.id);
     this.setState({
       stocks: userStocks
     });
@@ -48,9 +46,7 @@ class App extends Component {
     const user = await findUser(cred);
       if (user) {
         this.setState({
-          userID: user.id,
-          wallet: user.wallet,
-          name: user.fullname
+          user: user
         });
         await this.fetchStocks();
         this.toggleLogged();
@@ -73,9 +69,7 @@ class App extends Component {
 
     if (user) {
       this.setState({
-        userID: user.id,
-        wallet: user.wallet,
-        fullname: user.fullname
+        user: user
       });
       this.toggleLogged();
     } else {
@@ -98,9 +92,7 @@ class App extends Component {
       newPassword: '',
       fullname: '',
       isLogged: false,
-      userID:'',
-      wallet:'',
-      name:'',
+      user:{},
       stocks:[],
       form1err:false,
       form2err:false
@@ -108,7 +100,7 @@ class App extends Component {
   }
 
   render() {
-    const {isLogged, form1err ,form2err, stocks} = this.state
+    const {isLogged, form1err ,form2err, stocks, user} = this.state
     return (<div className='main-div'>
       {
         (isLogged)
@@ -116,6 +108,8 @@ class App extends Component {
             logout={this.handleLogOut}
             stocks={stocks}
             fetchStocks={this.fetchStocks}
+            isLogged = {isLogged}
+            user = {user}
             />
           : <Login
             form1err={form1err}
