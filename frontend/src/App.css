@@ -89,5 +89,11 @@ nav{
   padding: 0 50px 0 50px !important;
 }
 .budget-style{
-  padding: 10px 0 20px 75px;
+  padding: 10px 0 20px 70px;
+}
+.welcome-back{
+  padding: 0 0 0 70px;
+}
+.qty-style{
+  width: 100% !important;
 }

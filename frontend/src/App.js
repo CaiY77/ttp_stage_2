@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { findUser , makeUser, updateUser, getUser, makeStock, getStocks} from './service/apiservice.js'
+import { findUser , makeUser, updateUser, getUser, getStocks} from './service/apiservice.js'
 import Dashboard from './components/Dashboard.js'
 import Login from './components/Login.js'
 import './App.css'
@@ -20,6 +20,19 @@ class App extends Component {
       form1err:false,
       form2err:false
     };
+  }
+
+  spend = async (amt) => {
+    console.log(amt)
+    const { user } = this.state
+    const remain = user.wallet - amt;
+    const update ={
+      "wallet":remain
+    }
+    const resp = await updateUser(user.id,update)
+    this.setState({
+      user:resp
+    });
   }
 
   toggleLogged = () => {
@@ -110,6 +123,7 @@ class App extends Component {
             fetchStocks={this.fetchStocks}
             isLogged = {isLogged}
             user = {user}
+            spend={this.spend}
             />
           : <Login
             form1err={form1err}

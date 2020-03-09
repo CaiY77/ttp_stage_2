@@ -12,7 +12,7 @@ constructor(props) {
   };
 }
   render() {
-    const { stocks, fetchStocks, isLogged, user } = this.props
+    const { stocks, fetchStocks, isLogged, user,spend } = this.props
     return (<div>
       <nav className="ui secondary menu">
 
@@ -24,7 +24,7 @@ constructor(props) {
 
       </nav>
 
-      <Route exact path = '/' render={()=> <Portfolio user={user} stocks={stocks} fetchStocks={fetchStocks}/>}/>
+      <Route exact path = '/' render={()=> <Portfolio user={user} stocks={stocks} fetchStocks={fetchStocks} spend={spend}/>}/>
       <Route path = '/transactions' render={()=> <Transaction stocks={stocks} isLogged={isLogged}/>}/>
 
     </div>);

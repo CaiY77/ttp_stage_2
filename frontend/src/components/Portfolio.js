@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios"
-import {Grid, Card, Form, Message,Header} from 'semantic-ui-react'
+import {Grid, Card, Form, Message,Header,Input,Button} from 'semantic-ui-react'
+import { makeStock } from '../service/apiservice.js'
+
 
 class Portfolio extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class Portfolio extends Component {
       search:'',
       searchErr:false,
       qtyErr: false,
-      result: {}
+      result: {},
+      qty:'',
     };
   }
 
@@ -40,13 +43,41 @@ class Portfolio extends Component {
     })
   }
 
+  checkStock = async () => {
+    console.log("check")
+    const {result , qty} = this.state
+    const {user} = this.props
+    const budget = user.wallet;
+    const cost = qty * result.latestPrice;
+
+    if((result.latestPrice * qty) > budget){
+      this.setState({
+        qtyErr: true
+      });
+      setTimeout(()=>{
+        this.setState({
+          qtyErr: false
+        });
+      },2000);
+    } else {
+      const Stock = {
+        "company": result.companyName,
+        "symbol": result.symbol,
+        "qty": qty,
+        "price": result.latestPrice
+      }
+      const newStock = await makeStock(user.id,Stock);
+      this.props.spend(cost);
+    }
+  }
 
 
   render() {
-    const {searchErr, result} = this.state
+    const {searchErr, result, qtyErr} = this.state
     return (
       <div>
-        <h1 className="budget-style">My Budget: {this.props.user.wallet}</h1>
+        <h1 className="welcome-back">Welcome back, {this.props.user.fullname} !</h1>
+        <h1 className="budget-style">My Budget: $ {this.props.user.wallet}</h1>
         <Grid className="grid-style">
           <Grid.Column width={5} className="left-column">
             <Form onSubmit={this.findStock}>
@@ -63,13 +94,35 @@ class Portfolio extends Component {
             }
             {
               (Object.entries(result).length)
-                ? <div>t</div>
+                ? <Card fluid>
+                  <Card.Content>
+                    <Card.Header className="card-style-2">{result.companyName}</Card.Header>
+                    <Card.Meta className="card-style">{result.symbol}</Card.Meta>
+                    <Card.Description className="card-style">Current Price: ${result.latestPrice}</Card.Description>
+
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Form onSubmit={this.checkStock}>
+                      <Form.Group className="qty-style">
+                        <Form.Input name='qty' placeholder={`$${result.latestPrice}`} onChange={this.handleInputs} type="number" min="0" step="0"/>
+                        <Button type="submit" content="Buy" color="green"/>
+                      </Form.Group>
+                    </Form>
+                  </Card.Content>
+                </Card>
                 : (<Message
                   header="You have no search results"
                   content="Enter the symbol of the stock you want to buy"
-                  />)
+                   />)
             }
-
+            {
+              (qtyErr)
+                ?(<Message
+                  error
+                  content="Please cheack to make sure you have enough money in your budget."
+                  />)
+                : null
+            }
           </Grid.Column>
           <Grid.Column width={11} className="right-column">
             Portfolio

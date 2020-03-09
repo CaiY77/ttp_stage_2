@@ -43,7 +43,7 @@ export const makeStock = async (id,stockInfo) => {
 
 export const getStocks = async (id) => {
   try {
-    const resp = await api.get(`/user/${id}/stock`)
+    const resp = await api.get(`/user/${id}/stocks`)
     return resp.data
   } catch (e) {
     console.log(e)

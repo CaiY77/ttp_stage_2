@@ -16,7 +16,7 @@ class Transaction extends Component {
       return <Card raised key={stock.id} className="card-style" >
         <Card.Content>
           <Card.Header className="card-style-2">{stock.company}</Card.Header>
-          <Card.Meta className="card-style">{momentDate.format("MMMM Do, YYYY")}</Card.Meta>
+          <Card.Meta className="card-style">{momentDate.format("LLLL")}</Card.Meta>
           <Card.Description className="card-style">
             You purchsed {stock.qty} shares of {stock.symbol} at ${stock.price} a share.
           </Card.Description>
