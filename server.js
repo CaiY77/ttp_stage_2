@@ -87,7 +87,7 @@ app.post('/user/:id/stock', async (request, response) => {
 })
 
 //get all stocks for a user
-app.get('/user/:id/stock', async(request,response)=>{
+app.get('/user/:id/stocks', async(request,response)=>{
   try{
     const allStocks = await Stock.findAll({
       where:{

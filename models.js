@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize')
 
-const db = new Sequelize({
+const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ttp_stocks'{
   database: 'ttp_stocks',
   dialect: 'postgres',
   define:{
@@ -23,8 +23,8 @@ const User = db.define('users', {
   password:Sequelize.STRING,
 
   wallet:{
-    type: Sequelize.INTEGER,
-    defaultValue: 5000
+    type: Sequelize.FLOAT,
+    defaultValue: 5000.00
   }
 
 });
@@ -33,7 +33,7 @@ const Stock = db.define('stocks', {
   company: Sequelize.STRING,
   symbol: Sequelize.STRING,
   qty: Sequelize.INTEGER,
-  price: Sequelize.INTEGER
+  price: Sequelize.FLOAT
 })
 
 User.hasMany(Stock, {

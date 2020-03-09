@@ -5,7 +5,9 @@
   "main": "models.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev":"nodeman server.js",
+    "heroku-postbuild":"npm run build",
     "db:reset": "dropdb --if-exists -e ttp_stocks && createdb -e ttp_stocks && node resetDb.js && node seed.js"
   },
   "repository": {
