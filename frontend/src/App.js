@@ -33,6 +33,7 @@ class App extends Component {
     this.setState({
       user:resp
     });
+    this.fetchStocks()
   }
 
   toggleLogged = () => {

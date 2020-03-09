@@ -78,12 +78,6 @@ nav{
 }
 /* Portfolio */
 .left-column{
-  border: solid black 1px;
-  border-radius: 20px;
-  padding-bottom: 90px !important;
-}
-.make-fade{
-  position: absolute !important;
 }
 .grid-style{
   padding: 0 50px 0 50px !important;
@@ -96,4 +90,7 @@ nav{
 }
 .qty-style{
   width: 100% !important;
+}
+.button-position{
+  float: right;
 }

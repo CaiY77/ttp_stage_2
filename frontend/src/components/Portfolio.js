@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios"
-import {Grid, Card, Form, Message,Header,Input,Button} from 'semantic-ui-react'
+import {Grid, Card, Form, Message,Header,Input,Button, Icon} from 'semantic-ui-react'
 import { makeStock } from '../service/apiservice.js'
 
 
@@ -13,6 +13,7 @@ class Portfolio extends Component {
       qtyErr: false,
       result: {},
       qty:'',
+      success:false
     };
   }
 
@@ -28,18 +29,14 @@ class Portfolio extends Component {
     .then(response => response.data)
     .then(data=>{
       this.setState({
-        result: data
+        result: data,
+        searchErr: false
       });
     })
     .catch(e=>{
       this.setState({
         searchErr: true
       });
-      setTimeout(()=>{
-        this.setState({
-          searchErr: false
-        });
-      },2000);
     })
   }
 
@@ -68,16 +65,43 @@ class Portfolio extends Component {
       }
       const newStock = await makeStock(user.id,Stock);
       this.props.spend(cost);
+      this.setState({
+        success: true,
+        results: {},
+        qty:''
+      });
+      setTimeout(()=>{
+        this.setState({
+          success:false
+        });
+      },2500)
+    }
+  }
+
+  cancelSearch=()=>{
+    this.setState({
+      result:{}
+    });
+  }
+  showWallet = () =>{
+    const { user } = this.props
+    if(user.wallet){
+      console.log(user.wallet)
+      let output = ''
+      let value = user.wallet.toString()
+      let val = value.split(".");
+      output = output + val[0] + "." + val[1][0] + val[1][1]
+      return output;
     }
   }
 
 
   render() {
-    const {searchErr, result, qtyErr} = this.state
+    const {searchErr, result, qtyErr,qty,success} = this.state
     return (
       <div>
         <h1 className="welcome-back">Welcome back, {this.props.user.fullname} !</h1>
-        <h1 className="budget-style">My Budget: $ {this.props.user.wallet}</h1>
+        <h1 className="budget-style">My Budget: $ {this.showWallet()}</h1>
         <Grid className="grid-style">
           <Grid.Column width={5} className="left-column">
             <Form onSubmit={this.findStock}>
@@ -87,7 +111,6 @@ class Portfolio extends Component {
               (searchErr)
                 ?(<Message
                   error
-                  className="make-fade"
                   content="This is an invalid search value"
                   />)
                 : null
@@ -96,7 +119,7 @@ class Portfolio extends Component {
               (Object.entries(result).length)
                 ? <Card fluid>
                   <Card.Content>
-                    <Card.Header className="card-style-2">{result.companyName}</Card.Header>
+                    <Card.Header className="card-style-2">{result.companyName} <Button onClick={this.cancelSearch} className="button-position" icon="close"/></Card.Header>
                     <Card.Meta className="card-style">{result.symbol}</Card.Meta>
                     <Card.Description className="card-style">Current Price: ${result.latestPrice}</Card.Description>
 
@@ -104,8 +127,8 @@ class Portfolio extends Component {
                   <Card.Content extra>
                     <Form onSubmit={this.checkStock}>
                       <Form.Group className="qty-style">
-                        <Form.Input name='qty' placeholder={`$${result.latestPrice}`} onChange={this.handleInputs} type="number" min="0" step="0"/>
-                        <Button type="submit" content="Buy" color="green"/>
+                        <Form.Input value={qty} name='qty' placeholder={`$${result.latestPrice}`} onChange={this.handleInputs} type="number" min="0" step="0"/>
+                        <Form.Button type="submit" content="Buy" color="green"/>
                       </Form.Group>
                     </Form>
                   </Card.Content>
@@ -123,9 +146,17 @@ class Portfolio extends Component {
                   />)
                 : null
             }
+            {
+              (success)
+                ?<Message
+                  header="Success"
+                  content="Your purchase was successful!"
+                 />
+                :null
+            }
           </Grid.Column>
           <Grid.Column width={11} className="right-column">
-            Portfolio
+            
           </Grid.Column>
         </Grid>
       </div>
