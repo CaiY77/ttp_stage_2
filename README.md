@@ -47,7 +47,7 @@ renderTransactions = () => {
 
 ### Login Screen
 
-<img width="1435" alt="Screen Shot 2020-03-09 at 7 37 48 AM" src="https://user-images.githubusercontent.com/33525692/76209979-8c6d6b00-61d9-11ea-9941-7a7b6db24eb4.png">
+<img width="1435" alt="Screen Shot 2020-03-09 at 7 52 21 AM" src="https://user-images.githubusercontent.com/33525692/76210725-123de600-61db-11ea-8a2b-9137cbabdafe.png">
 
 
 ### Register Screen
@@ -64,7 +64,7 @@ renderTransactions = () => {
 
 ### Transactions
 
-<img width="1435" alt="Screen Shot 2020-03-09 at 7 39 03 AM" src="https://user-images.githubusercontent.com/33525692/76210005-95f6d300-61d9-11ea-89ea-1fc4c31fa864.png">
+<img width="1435" alt="Screen Shot 2020-03-09 at 7 51 42 AM" src="https://user-images.githubusercontent.com/33525692/76210731-1833c700-61db-11ea-8968-2de8d2debfe3.png">
 
 #### Requirements
 
