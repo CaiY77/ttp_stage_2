@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react'
+import { Card , Message } from 'semantic-ui-react'
 import {Redirect} from 'react-router'
 const moment = require('moment');
 
@@ -22,7 +22,7 @@ class Transaction extends Component {
           </Card.Description>
         </Card.Content>
         <Card.Content className="card-style">
-          Total: $ {total}
+          Total: $ {total.toFixed(2)}
         </Card.Content>
 
       </Card>
@@ -36,9 +36,18 @@ class Transaction extends Component {
       return <Redirect to='/' />
     }
     return (<div className="trans-contain">
-      <Card.Group stackable itemsPerRow="1">
-        {this.renderTransactions()}
-      </Card.Group>
+      {
+        (this.props.stocks.length)
+          ?<Card.Group stackable itemsPerRow="1">
+            {this.renderTransactions()}
+          </Card.Group>
+          :<Message
+            className = 'no-stock'
+            size="big"
+            color="yellow"
+            content="You have no previous transactions"
+           />
+      }
     </div>);
   }
 

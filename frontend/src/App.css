@@ -103,3 +103,12 @@ nav{
 .no-stock{
   text-align: center;
 }
+.red-back{
+  background: rgba(255,0,0,.5) !important;
+}
+.green-back{
+  background: rgba(0,255,0,.5) !important;
+}
+.grey-back{
+  background: rgba(211,211,211,.5) !important;
+}

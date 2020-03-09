@@ -3,6 +3,7 @@ import axios from "axios"
 import {Grid, Card, Form, Message,Header,Input,Button, Icon} from 'semantic-ui-react'
 import { makeStock } from '../service/apiservice.js'
 
+let changer='';
 
 class Portfolio extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Portfolio extends Component {
       result: {},
       qty:'',
       success:false,
-      displayStock:[]
+      change:''
     };
   }
 
@@ -66,6 +67,7 @@ class Portfolio extends Component {
         "company": result.companyName,
         "symbol": result.symbol,
         "qty": qty,
+        "change": result.change,
         "price": result.latestPrice
       }
       const newStock = await makeStock(user.id,Stock);
@@ -89,51 +91,68 @@ class Portfolio extends Component {
     });
   }
 
-  stockHelper = async (symbol) => {
-    const token = 'pk_60ef2a46b58e4d3e9ba1c7138a8eed18'
-    let url =`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${token}`
-    await axios.get(url)
-    .then(response => response.data)
-    .then(data=>{
-      this.setState({
-        change:data.change
-      });
-    })
-    .catch(e=>{
-      console.log(e);
-    })
-  }
-
-  // renderMyStocks = () => {
-  //   const {stocks}= this.props
-  //   console.log('original',stocks)
-  //   let symHold = []
-  //   let mergeStocks = []
-  //   let dups = []
-  //   let copy = Array.from(stocks)
-  //   console.log('copy',copy)
-  //   //
-  //   copy.forEach(stock=>{
-  //     if(symHold.includes(stock.symbol)){
-  //       dups.push(stock)
-  //     } else {
-  //       symHold.push(stock.symbol)
-  //       mergeStocks.push(stock);
-  //     }
-  //   })
+  // stockHelper = async (symbol) => {
   //
-  //   dups.forEach(dup=>{
-  //     mergeStocks.forEach(ans=>{
-  //       if(dup['symbol'].toLowerCase() == ans['symbol'].toLowerCase()){
-  //         let sum = ans['qty'] + dup['qty']
-  //         ans['qty'] = sum;
-  //       }
-  //     })
+  //   const token = 'pk_60ef2a46b58e4d3e9ba1c7138a8eed18'
+  //   let url =`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${token}`
+  //   await axios.get(url)
+  //   .then(response => response.data)
+  //   .then(data=>{
+  //     this.setState({
+  //       change: data.change
+  //     });
   //   })
-  //   console.log("final",mergeStocks)
-  //   console.log("dups",dups)
-  //
+  //   .catch(e=>{
+  //     console.log(e);
+  //   })
   // }
+
+  filterStocks = (arr) => {
+    const {change} = this.state
+    let obj = {};
+    let mergeArr = []
+    arr.forEach(e => {
+      if (obj[e.symbol] !== e.symbol) {
+        obj[e.symbol] = { qty: 0, symbol: e.symbol, company: e.company,price: e.price, change:e.change}
+      }
+    })
+
+    for (let i of Object.values(obj)) {
+      mergeArr.push(i)
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < mergeArr.length; j++) {
+        if (arr[i].symbol === mergeArr[j].symbol) {
+          mergeArr[j].qty += arr[i].qty
+        }
+      }
+    }
+    let cards = mergeArr.map(stock=>{
+
+      let total = stock.qty * stock.price;
+
+      return(<Card raised key={stock.symbol} className="card-style"
+        className={
+          (stock.change == 0)
+            ? 'grey-back'
+            : (stock.change > 0)?'green-back' : 'red-back'
+        }
+        >
+        <Card.Content>
+          <Card.Header className="card-style-2">{stock.company}</Card.Header>
+          <Card.Description className="card-style">
+            You currently own {stock.qty} shares of {stock.symbol}
+          </Card.Description>
+        </Card.Content>
+        <Card.Content className="card-style">
+          Total Value: ${total.toFixed(2)}
+        </Card.Content>
+
+      </Card>)
+    })
+    return cards;
+  }
 
 
   render() {
@@ -205,7 +224,9 @@ class Portfolio extends Component {
           <Grid.Column width={11} className="right-column">
             {
               (stocks.length)
-                ? null
+                ? (<Card.Group stackable itemsPerRow="1">
+                  { this.filterStocks(stocks) }
+                </Card.Group>)
                 : <Message
                   className = 'no-stock'
                   size="big"
