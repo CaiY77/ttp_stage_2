@@ -36,6 +36,7 @@ height: 100vh;
 /* Dashboard */
 nav{
   padding: 25px 20px 25px 0px;
+  border-bottom: solid lightgrey 1px !important;
 }
 .custom-style{
   font-size: 1.4rem;
@@ -82,15 +83,23 @@ nav{
 .grid-style{
   padding: 0 50px 0 50px !important;
 }
-.budget-style{
-  padding: 10px 0 20px 70px;
-}
 .welcome-back{
-  padding: 0 0 0 70px;
+  margin: 0;
+}
+.budget-style{
+  margin: 0;
+}
+.wel-bud{
+  padding: 25px 60px 50px 60px;
+  display: flex;
+  justify-content: space-between;
 }
 .qty-style{
   width: 100% !important;
 }
 .button-position{
   float: right;
+}
+.no-stock{
+  text-align: center;
 }

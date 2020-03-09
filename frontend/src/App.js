@@ -14,7 +14,7 @@ class App extends Component {
       newEmail:'',
       newPassword: '',
       fullname: '',
-      isLogged: true,
+      isLogged: false,
       stocks:[],
       user:{},
       form1err:false,
@@ -23,7 +23,6 @@ class App extends Component {
   }
 
   spend = async (amt) => {
-    console.log(amt)
     const { user } = this.state
     const remain = user.wallet - amt;
     const update ={

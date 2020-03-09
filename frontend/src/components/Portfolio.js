@@ -13,7 +13,8 @@ class Portfolio extends Component {
       qtyErr: false,
       result: {},
       qty:'',
-      success:false
+      success:false,
+      displayStock:[]
     };
   }
 
@@ -37,11 +38,15 @@ class Portfolio extends Component {
       this.setState({
         searchErr: true
       });
+      setTimeout(()=>{
+        this.setState({
+          searchErr:false
+        });
+      },2000)
     })
   }
 
   checkStock = async () => {
-    console.log("check")
     const {result , qty} = this.state
     const {user} = this.props
     const budget = user.wallet;
@@ -83,25 +88,66 @@ class Portfolio extends Component {
       result:{}
     });
   }
-  showWallet = () =>{
-    const { user } = this.props
-    if(user.wallet){
-      console.log(user.wallet)
-      let output = ''
-      let value = user.wallet.toString()
-      let val = value.split(".");
-      output = output + val[0] + "." + val[1][0] + val[1][1]
-      return output;
-    }
+
+  stockHelper = async (symbol) => {
+    const token = 'pk_60ef2a46b58e4d3e9ba1c7138a8eed18'
+    let url =`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${token}`
+    await axios.get(url)
+    .then(response => response.data)
+    .then(data=>{
+      this.setState({
+        change:data.change
+      });
+    })
+    .catch(e=>{
+      console.log(e);
+    })
   }
+
+  // renderMyStocks = () => {
+  //   const {stocks}= this.props
+  //   console.log('original',stocks)
+  //   let symHold = []
+  //   let mergeStocks = []
+  //   let dups = []
+  //   let copy = Array.from(stocks)
+  //   console.log('copy',copy)
+  //   //
+  //   copy.forEach(stock=>{
+  //     if(symHold.includes(stock.symbol)){
+  //       dups.push(stock)
+  //     } else {
+  //       symHold.push(stock.symbol)
+  //       mergeStocks.push(stock);
+  //     }
+  //   })
+  //
+  //   dups.forEach(dup=>{
+  //     mergeStocks.forEach(ans=>{
+  //       if(dup['symbol'].toLowerCase() == ans['symbol'].toLowerCase()){
+  //         let sum = ans['qty'] + dup['qty']
+  //         ans['qty'] = sum;
+  //       }
+  //     })
+  //   })
+  //   console.log("final",mergeStocks)
+  //   console.log("dups",dups)
+  //
+  // }
 
 
   render() {
     const {searchErr, result, qtyErr,qty,success} = this.state
+    const {stocks, user} = this.props
+
     return (
       <div>
-        <h1 className="welcome-back">Welcome back, {this.props.user.fullname} !</h1>
-        <h1 className="budget-style">My Budget: $ {this.showWallet()}</h1>
+
+        <div className="wel-bud">
+          <h1 className="welcome-back">Welcome back, {user.fullname} !</h1>
+          <h1 className="budget-style">My Budget: $ {user.wallet.toFixed(2)}</h1>
+        </div>
+
         <Grid className="grid-style">
           <Grid.Column width={5} className="left-column">
             <Form onSubmit={this.findStock}>
@@ -149,6 +195,7 @@ class Portfolio extends Component {
             {
               (success)
                 ?<Message
+                  color="green"
                   header="Success"
                   content="Your purchase was successful!"
                  />
@@ -156,7 +203,16 @@ class Portfolio extends Component {
             }
           </Grid.Column>
           <Grid.Column width={11} className="right-column">
-            
+            {
+              (stocks.length)
+                ? null
+                : <Message
+                  className = 'no-stock'
+                  size="big"
+                  color="yellow"
+                  content="Your portfolio is currently empty. Search and purchase your first stock today!"
+                  />
+            }
           </Grid.Column>
         </Grid>
       </div>
