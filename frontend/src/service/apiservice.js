@@ -1,8 +1,9 @@
 import axios from 'axios'
 const URL = 'http://localhost:3001';
+const URL_LIVE = 'https://ttp-db.herokuapp.com';
 
 const api = axios.create({
-  baseURL: `${URL}`
+  baseURL: `${URL_LIVE}`
 })
 
 export const findUser = async (cred) => {
