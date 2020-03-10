@@ -17,6 +17,11 @@ height: 100vh;
   width: 100%;
   padding: 3% 23% 5% 23%;
 }
+@media (max-width: 770px) {
+  .form-reg-div,.form-login-div{
+    padding: 3% 10% 5% 10%;
+  }
+}
 .form-reg, .form-login{
   padding: 40px 10% 40px 10%;
   border: solid grey 2px;
@@ -45,6 +50,18 @@ nav{
   margin-left: 50px;
   position: relative;
 }
+@media (max-width: 475px) {
+  .custom-style{
+    font-size: 1.2rem;
+    margin-left: 35px;
+  }
+  .resp{
+    padding: 10px !important;
+  }
+  .login-font{
+    font-size:1rem !important;
+  }
+}
 .custom-style:before{
   content: "";
   position: absolute;
@@ -62,7 +79,7 @@ nav{
   transform: scaleX(1);
 }
 .logout-style{
-  font-size: 1.4rem !important;
+  font-size: 1.3rem !important;
 }
 
 /* Transaction */
@@ -70,6 +87,11 @@ nav{
   height: 85vh;
   overflow-y: scroll;
   padding: 30px 20% 30px 20%;
+}
+@media (max-width: 750px) {
+  .trans-contain{
+    padding: 30px 5% 30px 5%;
+  }
 }
 .card-style{
   font-size:1.2rem !important;
@@ -83,6 +105,30 @@ nav{
 .grid-style{
   padding: 0 50px 0 50px !important;
 }
+
+@media (max-width: 750px) {
+  .grid-style{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .wel-bud{
+    flex-direction: column;
+    padding: 25px 30px 30px 30px;
+  }
+  .welcome-back{
+    font-size: 1.6rem;
+  }
+  .budget-style{
+    font-size: 1.6rem;
+  }
+  .top-grid{
+    width: 75vw !important;
+  }
+  .resp-card{
+    width: 75vw !important;
+  }
+}
+
 .welcome-back{
   margin: 0;
 }

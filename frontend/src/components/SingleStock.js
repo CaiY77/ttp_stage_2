@@ -33,7 +33,7 @@ class SingleStock extends Component {
     const {change,latest} = this.state
     let total= qty * latest;
 
-    return (<Card raised key={symbol} className="card-style"
+    return (<Card fluid raised key={symbol} className="card-style"
       className={
         (change == 0)
           ? 'grey-back'

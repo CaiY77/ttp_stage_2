@@ -131,21 +131,22 @@ class Portfolio extends Component {
         </div>
 
         <Grid className="grid-style">
-          <Grid.Column width={5} className="left-column">
-            <Form onSubmit={this.findStock}>
-              <Form.Input required name="search" icon="search" placeholder="Enter a Stock Symbol" onChange={this.handleInputs}/>
+          <Grid.Column width={5} className="left-column top-grid">
+            <Form onSubmit={this.findStock} className="top-grid">
+              <Form.Input required className="top-grid" name="search" icon="search" placeholder="Enter a Stock Symbol" onChange={this.handleInputs}/>
             </Form>
             {
               (searchErr)
                 ?(<Message
                   error
+                  className="top-grid"
                   content="This is an invalid search value"
                   />)
                 : null
             }
             {
               (Object.entries(result).length)
-                ? <Card fluid>
+                ? <Card.Group className="top-grid"><Card fluid>
                   <Card.Content>
                     <Card.Header className="card-style-2">{result.companyName} <Button onClick={this.cancelSearch} className="button-position" icon="close"/></Card.Header>
                     <Card.Meta className="card-style">{result.symbol}</Card.Meta>
@@ -160,8 +161,9 @@ class Portfolio extends Component {
                       </Form.Group>
                     </Form>
                   </Card.Content>
-                </Card>
+                </Card></Card.Group>
                 : (<Message
+                  className="top-grid"
                   header="You have no search results"
                   content="Enter the symbol of the stock you want to buy"
                    />)
@@ -178,6 +180,7 @@ class Portfolio extends Component {
               (success)
                 ?<Message
                   color="green"
+                  className="top-grid"
                   header="Success"
                   content="Your purchase was successful!"
                  />
@@ -187,7 +190,7 @@ class Portfolio extends Component {
           <Grid.Column width={11} className="right-column">
             {
               (stocks.length)
-                ? (<Card.Group stackable itemsPerRow="1">
+                ? (<Card.Group stackable itemsPerRow="1" className ="resp-card">
                   {
                     final.map(stock=>
                       <SingleStock

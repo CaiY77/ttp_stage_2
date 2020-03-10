@@ -19,7 +19,7 @@ constructor(props) {
         <Link className="custom-style" to = "/"> <div>Portfolio</div></Link>
         <Link className="custom-style" to = "/transactions"> <div>Transactions</div></Link>
         <div className="right menu">
-          <Link to = "/" onClick={this.props.logout}><Button inverted color="red" className="logout-style">Sign Out</Button></Link>
+          <Link to = "/" onClick={this.props.logout}><Button inverted color="red" className="logout-style resp">Sign Out</Button></Link>
         </div>
 
       </nav>
