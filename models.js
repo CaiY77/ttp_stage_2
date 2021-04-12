@@ -13,7 +13,7 @@ const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/
   }
 });
 
-// const db = new Sequelize({
+// const db = new Sequelize(process.env.DATABASE_URL,{
 //   database: 'ttp_stocks',
 //   dialect: 'postgres',
 //   define:{
