@@ -6,8 +6,23 @@ const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/
   define:{
       underscored: true,
       returning: true
+  },
+  dialectOptions:{
+    ssl:true
   }
 });
+
+// const db = new Sequelize({
+//   database: 'ttp_stocks',
+//   dialect: 'postgres',
+//   define:{
+//       underscored: true,
+//       returning: true
+//   },
+//   dialectOptions:{
+//     ssl:true
+//   }
+// });
 
 const User = db.define('users', {
 
